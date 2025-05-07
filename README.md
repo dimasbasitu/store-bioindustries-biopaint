@@ -1,8 +1,64 @@
-# Dokumentasi Fungsi Kustom Webstore Bioindustries
+# Dokumentasi Developer - Webstore Bioindustries
 
-Berikut adalah fungsi-fungsi PHP kustom di file `functions.php` yang ditambahkan untuk kebutuhan spesifik webstore. Fungsi-fungsi default dari tema Orchid Store tidak ditampilkan.
+Dokumentasi ini mencakup keseluruhan sistem dan fungsionalitas dari website e-commerce [store.bioindustries.co.id](https://store.bioindustries.co.id), yang dibangun menggunakan WordPress dan WooCommerce. Seluruh pengembangan dilakukan oleh satu orang developer (Anda sendiri).
 
-## Daftar Fungsi Kustom:
+## 1. Halaman Utama
+- Menampilkan banner promosi, kategori produk, produk unggulan, dan ajakan untuk berkonsultasi.
+- Call to action menuju WhatsApp Customer Service.
+
+## 2. Kategori Produk
+### a. Wood Finishing & Care
+- Produk untuk melindungi, memperindah, dan merawat permukaan kayu.
+
+### b. Adhesive
+- Lem kayu dan perekat lainnya untuk keperluan struktural dan kerajinan.
+
+### c. Wood Treatment
+- Produk anti-jamur, anti-rayap, dan pengawet kayu.
+
+## 3. Brand yang Ditampilkan
+- **Biovarnish** – Cat water based untuk hasil natural finishing.
+- **Bioduco** – Cat duco dengan warna solid, cocok untuk proyek kreatif.
+- **Biopolish** – Produk perawatan dan poles kayu alami.
+- **Biocide** – Pengawet kayu dan anti-jamur.
+- **Orchid Enamel Paint** – Cat enamel serbaguna untuk besi dan kayu.
+- **Silica Gel** – Produk tambahan untuk pengawetan barang.
+
+## 4. Fitur Utama Website
+- Checkout dengan transfer manual (BCA) dan sistem validasi manual.
+- Pengiriman terintegrasi dengan **KiriminAja**, mendukung COD dan non-COD.
+- Custom tampilan dashboard pelanggan: menampilkan riwayat pesanan manual, salin rekening, dan instruksi pembayaran.
+- Kode kupon digital, dapat digunakan langsung dari dashboard.
+
+## 5. Teknologi yang Digunakan
+- **Platform CMS**: WordPress
+- **Plugin E-Commerce**: WooCommerce
+- **Tema**: Orchid Store (dengan modifikasi di `functions.php`)
+- **Bahasa Pemrograman**: PHP, HTML, CSS, JavaScript
+- **Integrasi Eksternal**: KiriminAja API (pengiriman), WhatsApp API (kontak CS)
+
+## 6. Struktur Direktori dan File Penting
+```
+wp-content/
+├── themes/
+│   └── orchid-store/
+│       ├── functions.php          # Berisi seluruh fungsi custom
+│       └── ...
+├── plugins/
+│   ├── woocommerce/              # Plugin WooCommerce
+│   └── kiriminaja-integrator/    # Jika menggunakan plugin khusus
+└── uploads/                      # Tempat media produk dan aset
+```
+
+## 7. Fungsi Kustom di functions.php
+File `functions.php` berisi modifikasi utama untuk:
+- Mengatur akses role pengguna (shop manager)
+- Menampilkan informasi tambahan di dashboard pelanggan
+- Menangani input manual seperti nomor resi dan riwayat pesanan
+- Menambahkan shortcut (dashboard cards) di akun pelanggan
+- Menangani redirect setelah checkout ke halaman instruksi pembayaran
+
+### Daftar Fungsi (kecuali fungsi default tema Orchid Store):
 - `copyRekening`
 - `custom_my_account_dashboard_cards`
 - `handle_payment_callback`
@@ -15,7 +71,7 @@ Berikut adalah fungsi-fungsi PHP kustom di file `functions.php` yang ditambahkan
 - `tampilkan_menu_kupon`
 - `tampilkan_riwayat_pesanan_manual`
 
-## Penjelasan Fungsi
+## Penjelasan Fungsi Kustom
 ### `copyRekening`
 ```php
 function copyRekening() {
@@ -580,3 +636,18 @@ function tampilkan_riwayat_pesanan_manual() {
 ```
 **Penjelasan:**
 Menampilkan elemen tambahan seperti kupon, berat, atau riwayat pesanan di halaman customer.
+
+## 8. Integrasi Pihak Ketiga
+
+### a. KiriminAja (Pengiriman)
+- KiriminAja digunakan sebagai agregator pengiriman (termasuk COD dan non-COD).
+- Sistem ini mengatur data pengiriman langsung dari dashboard admin WooCommerce.
+- Akses diberikan ke peran **Shop Manager** menggunakan fungsi `kiriminaja_access_for_shop_manager`.
+
+### b. Metode Pembayaran Manual (Transfer BCA)
+- Sistem pembayaran tidak menggunakan payment gateway otomatis.
+- Setelah checkout, pelanggan diarahkan ke halaman instruksi pembayaran manual.
+- Dilengkapi fitur salin rekening (`copyRekening`) dan status pesanan diubah manual oleh admin.
+
+---
+Dokumentasi ini dapat diperluas jika ada perubahan sistem, penambahan metode pembayaran baru, atau integrasi eksternal tambahan.
